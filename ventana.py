@@ -95,7 +95,7 @@ def calcular_lineal():
         exp_lineal= coeficiente.get(coef_lineal.get()) * longitud.get()* (temp_f.get()-temp_i.get())
         print(exp_lineal)
         pygame.draw.line(screen,azul,(100,200),(100+escala_i(longitud.get()),200),10)
-        pygame.draw.line(screen, rojo, (100, 400), (100 +( longitud.get()*20)+exp_li(exp_lineal)+exp_lineal, 400), 10)
+        pygame.draw.line(screen, rojo, (100, 400), (100 +escala_i(longitud.get())+exp_li(exp_lineal)+exp_lineal, 400), 10)
         pygame.draw.line(screen, azul, (100, 400), (100+escala_i(longitud.get()), 400), 10)
 
         pygame.font.init()
