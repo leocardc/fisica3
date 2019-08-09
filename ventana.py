@@ -6,9 +6,10 @@ from tkinter import *
 import os
 
 root = Tk()
-w,h=1000,650
-rojo=255,0,0
-azul=0,0,240
+w,h = 1000, 650
+rojo = 255, 0, 0
+azul = 0, 0, 240
+NEGRO = 0, 0, 0
 
 coeficiente = {'Aluminio': 23e-6 ,'Cobre': 17e-6,
                'Acero': 11e-6,'Vidrio': 9e-6, 'Zinc': 25e-6,
@@ -33,7 +34,7 @@ os.environ['SDL_WINDOWID'] = str(embed.winfo_id())
 os.environ['SDL_VIDEODRIVER'] = 'windib'
 
 screen = pygame.display.set_mode((w-300,650))
-screen.fill(pygame.Color(0,0,0))
+screen.fill(NEGRO)
 
 pygame.display.init()
 pygame.display.update()
@@ -64,15 +65,15 @@ def mostrar():
         temp_fin = Entry(root, textvariable=temp_f, width=10)
         temp_fin.place(x=850, y=200)
 
-        temp_fintxt = Label(root, text='Temperatura Final :')
-        temp_fintxt.place(x=850, y=170)
+        root.temp_fintxt = Label(root, text='Temperatura Final :')
+        root.temp_fintxt.place(x=850, y=170)
 
-        botoncalcular = Button(root, text='calcular', command=calcular_lineal)
-        botoncalcular.place(x=700, y=250)
+        root.botoncalcular = Button(root, text='calcular', command=calcular_lineal)
+        root.botoncalcular.place(x=700, y=250)
 
 
     elif selected.get() == 2:
-    #
+
         Entry(root, textvariable=area, width=10).place(x=750, y=100)
         tex3 = Label(root, text='leo :').place(x=700, y=100)
         Entry(root, textvariable=base, width=10).place(x=750, y=120)
@@ -90,8 +91,8 @@ def draw():
 
     pygame.display.update()
 def calcular_lineal():
-    screen.fill(pygame.Color(0,0,0))
-    if longitud.get()!='' and temp_i.get()!='' and temp_f.get()!='' :
+    screen.fill(pygame.Color(0, 0, 0))
+    if longitud.get() != '' and temp_i.get() != '' and temp_f.get() != '':
         exp_lineal= coeficiente.get(coef_lineal.get()) * longitud.get()* (temp_f.get()-temp_i.get())
         print(exp_lineal)
         pygame.draw.line(screen,azul,(100,200),(100+escala_i(longitud.get()),200),10)
@@ -104,10 +105,11 @@ def calcular_lineal():
         screen.blit(mensaje, (100, 380))
         pygame.display.flip()
         pygame.display.update()
+
 def escala_i(longitud):
-    if longitud < 15 :
+    if longitud < 15:
         return 250
-    elif longitud < 30 :
+    elif longitud < 30:
         return 300
     elif longitud < 45:
         return  350
@@ -128,7 +130,7 @@ def exp_li(exp):
         return 19
     pass
 def suma():
-    if (area.get()!='' and base.get()!=''):
+    if (area.get() != '' and base.get() != ''):
 
         print( int(area.get())+int(base.get()))
         print(selected.get())
