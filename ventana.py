@@ -29,10 +29,13 @@ radio = DoubleVar()
 temp_f = DoubleVar()
 selected = DoubleVar()
 selected2 = DoubleVar()
+selected3 = DoubleVar()
 altura = DoubleVar()
 base = DoubleVar()
 lado1 = DoubleVar()
 lado2 = DoubleVar()
+radioesfe = DoubleVar()
+
 
 root.band_1 = True
 root.band_2 = True
@@ -182,6 +185,51 @@ def opc_superficial():
 
 def opc_volumetrica():
     print('volumetrica')
+    root.band_2 = False
+    screen.fill(pygame.Color(0, 0, 0))
+    pygame.font.init()
+    fuente = pygame.font.Font(None, 30)
+    titulo = fuente.render('Expansión Volumetrica', 1, rojo)
+    nombres = fuente.render('Leonardo Cardona y Juan Pablo Castaño', 1, azul)
+
+    screen.blit(nombres, (10, 10))
+    screen.blit(titulo, (10, 30))
+
+    root.cir = Radiobutton(root, text='Esfera', value=1, variable=selected3, bg='gray', command=opc_circulo)
+    root.cir.place(x=710, y=100)
+
+    root.listbox2 = Combobox(root, width=10, textvariable=coef_superficial)
+    root.listbox2.place(x=710, y=290)
+    root.listbox2['values'] = ("Aluminio", "Cobre", "Acero", "Vidrio", "Zinc", "Plomo", "Diamante")
+
+    root.coetxt2 = Label(root, text='Coeficiente :', bg='gray')
+    root.coetxt2.place(x=710, y=270)
+
+    root.temp_ini2 = Entry(root, textvariable=temp_i, width=10)
+    root.temp_ini2.place(x=710, y=230)
+
+    root.temp_initxt2 = Label(root, text='Temperatura Inicial :', bg='gray')
+    root.temp_initxt2.place(x=710, y=200)
+
+    root.temp_fin2 = Entry(root, textvariable=temp_f, width=10)
+    root.temp_fin2.place(x=850, y=230)
+
+    root.temp_fintxt2 = Label(root, text='Temperatura Final :', bg='gray')
+    root.temp_fintxt2.place(x=850, y=200)
+
+    root.botoncalcular2 = Button(root, text='calcular', command=calcular_superficial)
+    root.botoncalcular2.place(x=810, y=287)
+    if not root.band_3:
+        root.long.destroy()
+        root.longtxt.destroy()
+        root.listbox.destroy()
+        root.coetxt.destroy()
+        root.temp_fin.destroy()
+        root.temp_fintxt.destroy()
+        root.temp_initxt.destroy()
+        root.temp_ini.destroy()
+        root.botoncalcular.destroy()
+    embed.configure(bg='gray')
 
 
 def opc_circulo():
@@ -335,7 +383,7 @@ def calcular_superficial():
     screen.blit(nombres, (10, 10))
     screen.blit(titulo, (10, 30))
 
-    if selected2.get() == 1:
+    if selected3.get() == 1:
         if radio.get() != '' and temp_i.get() != '' and temp_f.get() != '':
             opcion = fuente.render('Circulo', 1, azul)
             screen.blit(opcion, (10, 50))
@@ -423,6 +471,39 @@ def calcular_superficial():
             screen.blit(mensaje_area_fin, (300, 610))
             pygame.display.update()
 
+def calcular_volumetrica():
+    screen.fill(pygame.Color(0, 0, 0))
+    pygame.font.init()
+    fuente = pygame.font.Font(None, 30)
+    titulo = fuente.render('Expansión Volumetrica', 1, rojo)
+    nombres = fuente.render('Leonardo Cardona y Juan Pablo Castaño', 1, azul)
+
+    screen.blit(nombres, (10, 10))
+    screen.blit(titulo, (10, 30))
+
+    if selected2.get() == 1:
+        if radioesfe.get() != '' and temp_i.get() != '' and temp_f.get() != '':
+            opcion = fuente.render('Esfera', 1, azul)
+            screen.blit(opcion, (10, 50))
+            area_circulo = math.pi * (radio.get() * radio.get())
+            diferencia_temp = (temp_f.get() - temp_i.get())
+            expan_superficial = coeficiente_Superficial.get(coef_superficial.get()) * area_circulo * diferencia_temp
+            pygame.font.init()
+            fuente = pygame.font.Font(None, 20)
+            mensaje_area_fin = fuente.render('Area Final: ' + str(round(area_circulo + expan_superficial, 3)), 1,
+                                             (255, 255, 255))
+            mensaje_area_ini = fuente.render('Area Inicial: ' + str(round(area_circulo, 3)), 1, (255, 255, 255))
+            mensaje_expansion = fuente.render('La Expansion fue de : ' + str(round(expan_superficial, 3)), 1,
+                                              (255, 255, 255))
+            screen.blit(mensaje_area_ini, (100, 550))
+            screen.blit(mensaje_expansion, (100, 570))
+            screen.blit(mensaje_area_fin, (100, 590))
+
+            pygame.draw.circle(screen, azul, (300, 150), escala_cir(int(radio.get())))
+            pygame.draw.circle(screen, rojo, (300, 450), escala_cir(int(radio.get())) + expa_s(expan_superficial))
+            pygame.draw.circle(screen, azul, (300, 450), escala_cir(int(radio.get())))
+
+            pygame.display.update()
 
 
 def escala_i(longitud):
