@@ -33,7 +33,6 @@ altura = DoubleVar()
 base = DoubleVar()
 lado1 = DoubleVar()
 lado2 = DoubleVar()
-lado3 = DoubleVar()
 
 root.band_1 = True
 root.band_2 = True
@@ -65,7 +64,7 @@ def opc_lineal():
     pygame.font.init()
     fuente = pygame.font.Font(None, 30)
     titulo = fuente.render('Expansión Lineal', 1, rojo)
-    nombres = fuente.render('Leonardo Cardona y Juan Pablo Tinoco', 1, azul)
+    nombres = fuente.render('Leonardo Cardona y Juan Pablo Castaño', 1, azul)
 
     screen.blit(nombres, (10, 10))
     screen.blit(titulo, (10, 30))
@@ -124,8 +123,6 @@ def opc_lineal():
             root.lado1txt.destroy()
             root.lado2.destroy()
             root.lado2txt.destroy()
-            root.lado3.destroy()
-            root.lado3txt.destroy()
     embed.configure(bg='gray')
 
 
@@ -137,7 +134,7 @@ def opc_superficial():
     pygame.font.init()
     fuente = pygame.font.Font(None, 30)
     titulo = fuente.render('Expansión Superficial', 1, rojo)
-    nombres = fuente.render('Leonardo Cardona y Juan Pablo Tinoco', 1, azul)
+    nombres = fuente.render('Leonardo Cardona y Juan Pablo Castaño', 1, azul)
 
     screen.blit(nombres, (10, 10))
     screen.blit(titulo, (10, 30))
@@ -194,7 +191,7 @@ def opc_circulo():
     pygame.font.init()
     fuente = pygame.font.Font(None, 30)
     titulo = fuente.render('Expansión Superficial', 1, rojo)
-    nombres = fuente.render('Leonardo Cardona y Juan Pablo Tinoco', 1, azul)
+    nombres = fuente.render('Leonardo Cardona y Juan Pablo Castaño', 1, azul)
     opcion = fuente.render('Circulo', 1, azul)
 
     screen.blit(nombres, (10, 10))
@@ -212,8 +209,6 @@ def opc_circulo():
         root.lado1txt.destroy()
         root.lado2.destroy()
         root.lado2txt.destroy()
-        root.lado3.destroy()
-        root.lado3txt.destroy()
         root.bands_3 = True
     embed.configure(bg='gray')
 
@@ -231,7 +226,7 @@ def opc_cuadrado():
     pygame.font.init()
     fuente = pygame.font.Font(None, 30)
     titulo = fuente.render('Expansión Superficial', 1, rojo)
-    nombres = fuente.render('Leonardo Cardona y Juan Pablo Tinoco', 1, azul)
+    nombres = fuente.render('Leonardo Cardona y Juan Pablo Castaño', 1, azul)
     opcion = fuente.render('Cuadrilatero', 1, azul)
 
     screen.blit(nombres, (10, 10))
@@ -247,8 +242,6 @@ def opc_cuadrado():
         root.lado1txt.destroy()
         root.lado2.destroy()
         root.lado2txt.destroy()
-        root.lado3.destroy()
-        root.lado3txt.destroy()
         root.bands_3 = True
     embed.configure(bg='gray')
 
@@ -270,7 +263,7 @@ def opc_triangulo():
     pygame.font.init()
     fuente = pygame.font.Font(None, 30)
     titulo = fuente.render('Expansión Superficial', 1, rojo)
-    nombres = fuente.render('Leonardo Cardona y Juan Pablo Tinoco', 1, azul)
+    nombres = fuente.render('Leonardo Cardona y Juan Pablo Castaño', 1, azul)
     opcion=fuente.render('Triangulo', 1, azul)
 
     screen.blit(nombres, (10, 10))
@@ -288,20 +281,15 @@ def opc_triangulo():
         root.bands_2 = True
     embed.configure(bg='gray')
 
-    root.lado1txt = Label(root, text='Lado 1 :', bg='gray')
+    root.lado1txt = Label(root, text='Altura :', bg='gray')
     root.lado1txt.place(x=710, y=130)
     root.lado1 = Entry(root, textvariable=lado1, width=10)
     root.lado1.place(x=710, y=160)
 
-    root.lado2txt = Label(root, text='Lado 2 :', bg='gray')
+    root.lado2txt = Label(root, text='Base :', bg='gray')
     root.lado2txt.place(x=790, y=130)
     root.lado2 = Entry(root, textvariable=lado2, width=10)
     root.lado2.place(x=790, y=160)
-
-    root.lado3txt = Label(root, text='Lado 3 :', bg='gray')
-    root.lado3txt.place(x=870, y=130)
-    root.lado3 = Entry(root, textvariable=lado3, width=10)
-    root.lado3.place(x=870, y=160)
 
 
 def draw():
@@ -315,7 +303,7 @@ def calcular_lineal():
     pygame.font.init()
     fuente = pygame.font.Font(None, 30)
     titulo = fuente.render('Expansión Lienal', 1, rojo)
-    nombres = fuente.render('Leonardo Cardona y Juan Pablo Tinoco', 1, azul)
+    nombres = fuente.render('Leonardo Cardona y Juan Pablo Castaño', 1, azul)
 
     screen.blit(nombres, (10, 10))
     screen.blit(titulo, (10, 30))
@@ -341,7 +329,7 @@ def calcular_superficial():
     pygame.font.init()
     fuente = pygame.font.Font(None, 30)
     titulo = fuente.render('Expansión Superficial', 1, rojo)
-    nombres = fuente.render('Leonardo Cardona y Juan Pablo Tinoco', 1, azul)
+    nombres = fuente.render('Leonardo Cardona y Juan Pablo Castaño', 1, azul)
 
 
     screen.blit(nombres, (10, 10))
@@ -410,21 +398,29 @@ def calcular_superficial():
             pygame.display.update()
 
     elif selected2.get() == 3:
-        if lado1.get() != '' and lado2.get() != '' and lado3.get() != '' and temp_i.get() != '' \
+        if lado1.get() != '' and lado2.get() != '' and temp_i.get() != '' \
                 and temp_f.get() != '' and coef_superficial.get() != '':
             opcion = fuente.render('Triangulo', 1, azul)
             screen.blit(opcion, (10, 50))
 
             diferencia_temp = (temp_f.get() - temp_i.get())
-            area_trian = base.get() * altura.get()
-            expan_superficial = coeficiente_Superficial.get(coef_superficial.get()) * area_cuadra * diferencia_temp
+            area_trian = (lado1.get() * lado2.get())/2
+            expan_superficial = 2*coeficiente_Superficial.get(coef_superficial.get()) * area_trian * diferencia_temp
 
-            listapuntos = [(200, 300), (300, 180), (400, 300)]
+            listapuntos = [(200, 300), (300, 180-lado1.get()), (400+lado2.get(), 300)]
             pygame.draw.polygon(screen, azul, listapuntos)
-            listapuntos2 = [(190, 555), (300, 410), (410, 555)]
+            listapuntos2 = [(200-expan_superficial*10, 600+expan_superficial*10), (300, 480-lado1.get()-expan_superficial*10), (400+lado2.get()+expan_superficial*10, 600+expan_superficial*10)]
             pygame.draw.polygon(screen, rojo, listapuntos2)
-            listapuntos3 = [(200, 550), (300, 420), (400, 550)]
+            listapuntos3 = [(200, 600), (300, 480-lado1.get()), (400+lado2.get(), 600)]
             pygame.draw.polygon(screen, azul, listapuntos3)
+            mensaje_area_fin = fuente.render('Area Final: ' + str(round(area_trian + expan_superficial, 3)), 1,
+                                             (255, 255, 255))
+            mensaje_area_ini = fuente.render('Area Inicial: ' + str(round(area_trian, 3)), 1, (255, 255, 255))
+            mensaje_expansion = fuente.render('La Expansion fue de : ' + str(round(expan_superficial, 3)), 1,
+                                              (255, 255, 255))
+            screen.blit(mensaje_area_ini, (300, 570))
+            screen.blit(mensaje_expansion, (300, 590))
+            screen.blit(mensaje_area_fin, (300, 610))
             pygame.display.update()
 
 
@@ -502,7 +498,7 @@ def suma():
 
 pygame.font.init()
 fuente = pygame.font.Font(None, 30)
-nombres = fuente.render('Leonardo Cardona y Juan Pablo Tinoco', 1,azul)
+nombres = fuente.render('Leonardo Cardona y Juan Pablo Castaño', 1,azul)
 
 screen.blit(nombres, (10, 10))
 
@@ -521,3 +517,4 @@ root.update()
 while True:
     pygame.display.update()
     root.update()
+
