@@ -21,6 +21,10 @@ coeficiente_Superficial = {'Aluminio': 44.8e-6, 'Cobre': 33.4e-6,
                            'Acero': 23e-6, 'Vidrio': 14.6e-6, 'Zinc': 52e-6,
                            'Plomo': 54.6e-6, 'Diamante': 1.8e-6}
 
+coeficiente_Volumentrico = {'Aluminio': 44.8e-6, 'Cobre': 33.4e-6,
+                           'Acero': 23e-6, 'Vidrio': 14.6e-6, 'Zinc': 52e-6,
+                           'Plomo': 54.6e-6, 'Diamante': 1.8e-6}
+
 coef_lineal = StringVar(root)
 coef_superficial = StringVar(root)
 longitud = DoubleVar()
@@ -126,6 +130,17 @@ def opc_lineal():
             root.lado1txt.destroy()
             root.lado2.destroy()
             root.lado2txt.destroy()
+    if not root.band_3:
+        root.listbox.destroy()
+        root.coetxt.destroy()
+        root.temp_fin.destroy()
+        root.temp_fintxt.destroy()
+        root.temp_initxt.destroy()
+        root.temp_ini.destroy()
+        root.botoncalcular2.destroy()
+        if selected3.get() == 1:
+            root.radioe.destroy()
+            root.radioetxt.destroy()
     embed.configure(bg='gray')
 
 
@@ -180,12 +195,24 @@ def opc_superficial():
         root.temp_initxt.destroy()
         root.temp_ini.destroy()
         root.botoncalcular.destroy()
+    if not root.band_3:
+
+            root.listbox.destroy()
+            root.coetxt.destroy()
+            root.temp_fin.destroy()
+            root.temp_fintxt.destroy()
+            root.temp_initxt.destroy()
+            root.temp_ini.destroy()
+            root.botoncalcular2.destroy()
+            if selected3.get()== 1:
+                root.radioe.destroy()
+                root.radioetxt.destroy()
     embed.configure(bg='gray')
 
 
 def opc_volumetrica():
     print('volumetrica')
-    root.band_2 = False
+    root.band_3 = False
     screen.fill(pygame.Color(0, 0, 0))
     pygame.font.init()
     fuente = pygame.font.Font(None, 30)
@@ -195,10 +222,10 @@ def opc_volumetrica():
     screen.blit(nombres, (10, 10))
     screen.blit(titulo, (10, 30))
 
-    root.cir = Radiobutton(root, text='Esfera', value=1, variable=selected3, bg='gray', command=opc_circulo)
+    root.cir = Radiobutton(root, text='Esfera', value=1, variable=selected3, bg='gray', command=opc_esfera)
     root.cir.place(x=710, y=100)
 
-    root.listbox2 = Combobox(root, width=10, textvariable=coef_superficial)
+    root.listbox2 = Combobox(root, width=10, textvariable=coef_lineal)
     root.listbox2.place(x=710, y=290)
     root.listbox2['values'] = ("Aluminio", "Cobre", "Acero", "Vidrio", "Zinc", "Plomo", "Diamante")
 
@@ -217,9 +244,34 @@ def opc_volumetrica():
     root.temp_fintxt2 = Label(root, text='Temperatura Final :', bg='gray')
     root.temp_fintxt2.place(x=850, y=200)
 
-    root.botoncalcular2 = Button(root, text='calcular', command=calcular_superficial)
+    root.botoncalcular2 = Button(root, text='calcular', command=calcular_volumetrica)
     root.botoncalcular2.place(x=810, y=287)
-    if not root.band_3:
+    if not root.band_2:
+        root.cir.destroy()
+        root.cua.destroy()
+        root.tri.destroy()
+        root.listbox2.destroy()
+        root.coetxt2.destroy()
+        root.temp_fin2.destroy()
+        root.temp_fintxt2.destroy()
+        root.temp_initxt2.destroy()
+        root.temp_ini2.destroy()
+        root.botoncalcular2.destroy()
+        if selected2.get() == 1:
+            root.radio.destroy()
+            root.radiotxt.destroy()
+        elif selected2.get() == 2:
+            root.basetxt.destroy()
+            root.base.destroy()
+            root.alturatxt.destroy()
+            root.altura.destroy()
+        elif selected2.get() == 3:
+            root.lado1.destroy()
+            root.lado1txt.destroy()
+            root.lado2.destroy()
+            root.lado2txt.destroy()
+
+    if not root.band_1:
         root.long.destroy()
         root.longtxt.destroy()
         root.listbox.destroy()
@@ -303,6 +355,24 @@ def opc_cuadrado():
     root.altura = Entry(root, textvariable=altura, width=10)
     root.altura.place(x=800, y=160)
 
+def opc_esfera():
+    screen.fill(pygame.Color(0, 0, 0))
+    pygame.font.init()
+    fuente = pygame.font.Font(None, 30)
+    titulo = fuente.render('Expansión Volumetrica', 1, rojo)
+    nombres = fuente.render('Leonardo Cardona y Juan Pablo Castaño', 1, azul)
+    opcion = fuente.render('Esfera', 1, azul)
+
+    screen.blit(nombres, (10, 10))
+    screen.blit(titulo, (10, 30))
+    screen.blit(opcion, (10, 50))
+
+    root.radioetxt = Label(root, text='Radio :', bg='gray')
+    root.radioetxt.place(x=710, y=130)
+    root.radioe = Entry(root, textvariable=radioesfe, width=10)
+    root.radioe.place(x=710, y=160)
+
+
 
 def opc_triangulo():
     print('triangulo')
@@ -383,7 +453,7 @@ def calcular_superficial():
     screen.blit(nombres, (10, 10))
     screen.blit(titulo, (10, 30))
 
-    if selected3.get() == 1:
+    if selected2.get() == 1:
         if radio.get() != '' and temp_i.get() != '' and temp_f.get() != '':
             opcion = fuente.render('Circulo', 1, azul)
             screen.blit(opcion, (10, 50))
@@ -453,7 +523,7 @@ def calcular_superficial():
 
             diferencia_temp = (temp_f.get() - temp_i.get())
             area_trian = (lado1.get() * lado2.get())/2
-            expan_superficial = 2*coeficiente_Superficial.get(coef_superficial.get()) * area_trian * diferencia_temp
+            expan_superficial = coeficiente_Superficial.get(coef_superficial.get()) * area_trian * diferencia_temp
 
             listapuntos = [(200, 300), (300, 180-lado1.get()), (400+lado2.get(), 300)]
             pygame.draw.polygon(screen, azul, listapuntos)
@@ -481,18 +551,18 @@ def calcular_volumetrica():
     screen.blit(nombres, (10, 10))
     screen.blit(titulo, (10, 30))
 
-    if selected2.get() == 1:
+    if selected3.get() == 1:
         if radioesfe.get() != '' and temp_i.get() != '' and temp_f.get() != '':
             opcion = fuente.render('Esfera', 1, azul)
             screen.blit(opcion, (10, 50))
-            area_circulo = math.pi * (radio.get() * radio.get())
+            vol_esfe = (4/3)* math.pi * (radioesfe.get() * radioesfe.get()*radioesfe.get())
             diferencia_temp = (temp_f.get() - temp_i.get())
-            expan_superficial = coeficiente_Superficial.get(coef_superficial.get()) * area_circulo * diferencia_temp
+            expan_superficial = (3*coeficiente.get(coef_lineal.get())) * vol_esfe * diferencia_temp
             pygame.font.init()
             fuente = pygame.font.Font(None, 20)
-            mensaje_area_fin = fuente.render('Area Final: ' + str(round(area_circulo + expan_superficial, 3)), 1,
+            mensaje_area_fin = fuente.render('Area Final: ' + str(round(vol_esfe + expan_superficial, 3)), 1,
                                              (255, 255, 255))
-            mensaje_area_ini = fuente.render('Area Inicial: ' + str(round(area_circulo, 3)), 1, (255, 255, 255))
+            mensaje_area_ini = fuente.render('Area Inicial: ' + str(round(vol_esfe, 3)), 1, (255, 255, 255))
             mensaje_expansion = fuente.render('La Expansion fue de : ' + str(round(expan_superficial, 3)), 1,
                                               (255, 255, 255))
             screen.blit(mensaje_area_ini, (100, 550))
@@ -571,11 +641,6 @@ def expa_s(exp):
     else:
         return 12
 
-
-def suma():
-    if (area.get() != '' and base.get() != ''):
-        print(int(area.get()) + int(base.get()))
-        print(selected.get())
 
 pygame.font.init()
 fuente = pygame.font.Font(None, 30)
