@@ -49,7 +49,7 @@ embed.configure(bg='gray')
 # buttonwin.pack(side = LEFT)
 
 os.environ['SDL_WINDOWID'] = str(embed.winfo_id())
-os.environ['SDL_VIDEODRIVER'] = 'windib'
+os.environ['SDL_VIDEODRIVER'] =
 
 screen = pygame.display.set_mode((w - 300, 650))
 screen.fill(NEGRO)
